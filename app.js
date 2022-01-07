@@ -62,6 +62,13 @@ app.post('/records/:id/edit', (req, res) => {
     .then(() => res.redirect(`/records/${id}`))
     .catch(error => console.log(error))
 })
+// 刪除
+app.post('/records/:id/delete', (req, res) => {
+  const _id = req.params.id
+  return Record.findOneAndDelete({_id})
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 // 設定 port 3000
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')

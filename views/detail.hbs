@@ -2,5 +2,8 @@
 <p>{{ record.date }}</p>
 <p>{{ record.amount }}</p>
    
-<a href="./records/{{ this._id }}/edit">edit</a>
+<a href="/records/{{ record._id }}/edit">edit</a>
+<form action="/records/{{ record._id }}/delete" method="POST" style="display: inline;">
+  <button type="submit">delete</button>
+</form>
 <a href="/">back</a>
