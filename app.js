@@ -4,24 +4,13 @@ const methodOverride = require('method-override')
 const app = express()
 
 const routes = require('./routes')
+require('./config/mongoose')
 
 // middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
-const mongoose = require('mongoose') // 載入 mongoose
-mongoose.connect('mongodb://localhost/expense-tracker') // 設定連線到 mongoDB
 
-// 取得資料庫連線狀態
-const db = mongoose.connection
-// 連線異常
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-// 連線成功
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
