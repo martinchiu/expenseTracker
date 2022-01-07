@@ -13,14 +13,6 @@ router.post('/', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
-// 瀏覽
-router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
-    .lean()
-    .then((record) => res.render('detail', { record }))
-    .catch(error => console.log(error))
-})
 // 修改
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
