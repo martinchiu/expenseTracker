@@ -1,9 +1,11 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
 const app = express()
 
 // middleware
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 const mongoose = require('mongoose') // 載入 mongoose
 mongoose.connect('mongodb://localhost/expense-tracker') // 設定連線到 mongoDB
 
@@ -55,7 +57,7 @@ app.get('/records/:id/edit', (req, res) => {
     .then((record) => res.render('edit', { record }))
     .catch(error => console.log(error))
 })
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
   const id = req.params.id
   const newRecord = req.body
   return Record.findOneAndUpdate({ id }, newRecord)
@@ -63,7 +65,7 @@ app.post('/records/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 // 刪除
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id', (req, res) => {
   const _id = req.params.id
   return Record.findOneAndDelete({_id})
     .then(() => res.redirect('/'))
