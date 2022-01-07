@@ -19,9 +19,13 @@ db.once('open', () => {
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+const Record = require('./models/record')
 // 設定首頁路由
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find()
+    .lean()
+    .then(items => res.render('index', {items}))
+    .catch(error => console.error(error))
 })
 
 // 設定 port 3000
