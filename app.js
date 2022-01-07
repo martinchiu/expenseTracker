@@ -47,6 +47,21 @@ app.get('/records/:id', (req, res) => {
     .then((record) => res.render('detail', { record }))
     .catch(error => console.log(error))
 })
+// 修改
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then((record) => res.render('edit', { record }))
+    .catch(error => console.log(error))
+})
+app.post('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const newRecord = req.body
+  return Record.findOneAndUpdate({ id }, newRecord)
+    .then(() => res.redirect(`/records/${id}`))
+    .catch(error => console.log(error))
+})
 // 設定 port 3000
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
