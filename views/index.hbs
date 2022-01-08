@@ -1,4 +1,4 @@
-<div class=" col-12 d-flex justify-content-center">
+<div class=" col-12 ">
   <div class="sort">
     {{!-- <form class="form-inline" method="GET" action="/records/">
       <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
@@ -11,12 +11,18 @@
       </select>
     </form> --}}
   </div>
-
-  <div class="amount">
-
+  {{!-- Amount --}}
+  <div class="col-md-6 mx-auto d-flex justify-content-center mt-5">
+    <h2 class="totalAmount ml-3">
+      {{#if totalAmount}}
+      總金額：{{ totalAmount }}
+      {{else}}
+      到目前為止還沒花錢呦
+      {{/if}}
+    </h2>
   </div>
-
-  <div class="col-9">
+  {{!-- List --}}
+  <div class="col-9 mx-auto mt-5">
     <ul class="list-group">
       {{#each records}}
       <li class="list-group-item m-4 my-1" style="box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2); border-radius: 10px;">
@@ -47,4 +53,5 @@
         {{/each}}
     </ul>
   </div>
+
 </div>
