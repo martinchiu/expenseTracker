@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const moment = require('moment')
 
 const Record = require('../../models/record')
 
@@ -18,14 +19,17 @@ router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .lean()
-    .then((record) => res.render('edit', { record }))
+    .then((record) => {
+      record.date = moment(record.date).format("YYYY-MM-DD")
+      res.render('edit', { record })
+    })
     .catch(error => console.log(error))
 })
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const newRecord = req.body
   return Record.findOneAndUpdate({ id }, newRecord)
-    .then(() => res.redirect(`/records/${id}`))
+    .then(() => res.redirect(`/`))
     .catch(error => console.log(error))
 })
 // 刪除
