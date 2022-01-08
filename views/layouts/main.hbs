@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>廣志の私帳</title>
   <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css" crossorigin="anonymous">
-  <nav class="navbar navbar-dark justify-content-between bg-primary" style="padding: 8px 16px;
-        ">
+  <nav class="navbar navbar-dark justify-content-between bg-primary" style="padding: 8px 16px;">
     <a class="navbar-brand" href="/">廣志の私帳</a>
-    <a class="btn btn-outline-light" href="/records/new">新增支出</a>
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-outline-light">Logout</a>
+    {{else}}
+    <a href="/users/login" class="btn btn-outline-light">Login</a>
+    {{/if}}
   </nav>
 </head>
 

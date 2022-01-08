@@ -24,8 +24,12 @@
       {{/if}}
     </h2>
   </div>
+  {{!-- Create --}}
+  <div class="col-4 mt-2 d-flex justify-content-around">
+    <a class="btn btn-outline-secondary" href="/records/new">新增支出</a>
+  </div>
   {{!-- List --}}
-  <div class="col-9 mx-auto mt-5">
+  <div class="col-9 mx-auto mt-1">
     <ul class="list-group">
       {{#each records}}
       <li class="list-group-item m-4 my-1" style="box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2); border-radius: 10px;">
@@ -56,5 +60,4 @@
         {{/each}}
     </ul>
   </div>
-
 </div>
