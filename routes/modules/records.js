@@ -9,15 +9,17 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const { name, date, category, amount } = req.body
-  Record.create({ name, date, category, amount })
+  Record.create({ name, date, category, amount, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 // 修改
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({_id, userId})
     .lean()
     .then((record) => {
       record.date = moment(record.date).format("YYYY-MM-DD")
@@ -26,16 +28,18 @@ router.get('/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const newRecord = req.body
-  return Record.findOneAndUpdate({ id }, newRecord)
+  return Record.findOneAndUpdate({ _id, userId }, newRecord)
     .then(() => res.redirect(`/`))
     .catch(error => console.log(error))
 })
 // 刪除
 router.delete('/:id', (req, res) => {
   const _id = req.params.id
-  return Record.findOneAndDelete({ _id })
+  const userId = req.user._id
+  return Record.findOneAndDelete({ _id, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

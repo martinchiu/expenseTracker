@@ -9,8 +9,8 @@ const CATEGORY = require('../../models/seeds/category.json').results
 // 首頁
 router.get('/', (req, res) => {
   let totalAmount = 0
-
-  Record.find()
+  const userId = req.user._id
+  Record.find({ userId })
     .lean()
     .then(records => {
       records.forEach(record => {
@@ -46,8 +46,8 @@ router.get('/:sort', (req, res) => {
       sortWay.name = '其他'
       break
   }
-
-  Record.find({ category: sortWay.name})
+  const userId = req.user._id
+  Record.find({ category: sortWay.name, userId})
     .lean()
     .then(records => {
       records.forEach(record => {
