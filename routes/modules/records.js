@@ -8,8 +8,8 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 router.post('/', (req, res) => {
-  const { name, date, amount } = req.body
-  Record.create({ name, date, amount })
+  const { name, date, category, amount } = req.body
+  Record.create({ name, date, category, amount })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

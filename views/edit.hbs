@@ -1,6 +1,13 @@
 <form action="/records/{{ record._id }}?_method=PUT" method="POST">
   <input type="text" placeholder="name" name="name" value="{{ record.name }}">
   <input type="date" name="date" value="{{ record.date }}">
+  <select name="category" id="category">
+    <option value="家居物業">家居物業</option>
+    <option value="交通出行">交通出行</option>
+    <option value="休閒娛樂">休閒娛樂</option>
+    <option value="餐飲食品">餐飲食品</option>
+    <option value="其他">其他</option>
+  </select>
   <input type="number" name="amount" value="{{ record.amount }}">
 
   <button type="submit">Save</button>
