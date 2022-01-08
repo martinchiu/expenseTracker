@@ -51,6 +51,7 @@ router.get('/:sort', (req, res) => {
     .lean()
     .then(records => {
       records.forEach(record => {
+        record.date = moment(record.date).format("YYYY-MM-DD")
         record.icon = CATEGORY.find(category => category.name === record.category).icon
         totalAmount += record.amount
       })
