@@ -3,6 +3,7 @@ const router = express.Router()
 const moment = require('moment')
 
 const Record = require('../../models/record')
+const Category = require('../../models/category')
 
 // 新增
 router.get('/new', (req, res) => {
@@ -11,9 +12,14 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, date, category, amount } = req.body
-  Record.create({ name, date, category, amount, userId })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+  Category.findOne({ name: category})
+    .lean()
+    .then(item => {
+      const categoryId = item._id
+      Record.create({ name, date, category, amount, userId, categoryId })
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))
+    })
 })
 // 修改
 router.get('/:id/edit', (req, res) => {
