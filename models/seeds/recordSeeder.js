@@ -5,7 +5,7 @@ const Category = require('../category')
 const category = require('../category')
 const record = require('../record')
 
-const CATEGORY = ["家居物業", "交通出行", "休閒娛樂", "餐飲食品", "其他"]
+const CATEGORY = require('./category.json').results
 
 db.once('open', () => {
   // 新增 record 種子資料
@@ -16,7 +16,7 @@ db.once('open', () => {
         name: 'name-' + index,
         date: Date.now(),
         amount: index,
-        category: value
+        category: value.name
       })
     }
   ))
