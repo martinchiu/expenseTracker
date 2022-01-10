@@ -4,8 +4,11 @@ const session = require('express-session')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const usePassport = require('./config/passport')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const app = express()
-
+const PORT = process.env.PORT
 const routes = require('./routes')
 require('./config/mongoose')
 
@@ -13,7 +16,7 @@ require('./config/mongoose')
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -41,6 +44,6 @@ app.set('view engine', 'hbs')
 
 
 // 設定 port 3000
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('App is running on http://localhost:3000')
 })
