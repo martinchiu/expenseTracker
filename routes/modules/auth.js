@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const authController = require('../../conrtollers/authController')
+const authController = require('../../services/authController')
 const passport = require('passport')
 // facebook
 router.get('/facebook', authController.getFacebook)

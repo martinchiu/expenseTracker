@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const homeController = require('../../conrtollers/homeController')
+const homeController = require('../../services/homeController')
 // 首頁
 router.get('/', homeController.home)
 // 分類
