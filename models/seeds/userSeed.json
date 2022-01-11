@@ -1,12 +1,12 @@
 {
   "results":[
     {
-      "name": "'seed1'",
+      "name": "seed1",
       "email": "111@example.com",
       "password": "12345678"
     },
     {
-      "name": "'seed2'",
+      "name": "seed2",
       "email": "222@example.com",
       "password": "12345678"
     }
