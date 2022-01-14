@@ -30,6 +30,7 @@
   </div>
   {{!-- List --}}
   <div class="col-9 mx-auto mt-1">
+    {{> message}}
     <ul class="list-group">
       {{#each records}}
       <li class="list-group-item m-4 my-1" style="box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2); border-radius: 10px;">
@@ -52,7 +53,8 @@
             <a href="/records/{{ this._id }}/edit">
               <button class="btn btn-success ">edit</button>
             </a>
-            <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;" class="delete-form" data-name="{{this.name}}">
+            <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"
+              class="delete-form" data-name="{{this.name}}">
               <button class="btn btn-danger" type="submit">delete</button>
             </form>
           </div>

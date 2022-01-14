@@ -7,11 +7,14 @@ module.exports = {
   login: (req, res) => {
     res.render('login')
   },
-  postLogin: passport.authenticate('local', {
-    successRedirect: '/',
+  postLogin: passport.authenticate('local', { 
     failureRedirect: '/users/login',
     failureFlash: true
   }),
+  postLoginReqRes: (req, res) => {
+    req.flash('success', '登入成功 歡迎')
+    res.redirect('/')
+  },
   // 註冊
   register: (req, res) => {
     res.render('register')
@@ -48,13 +51,17 @@ module.exports = {
     }
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
-    await User.create({
+    const newUser = await User.create({
       name,
       email,
       password: hash
     })
     try {
-      res.render('login', { email })
+      req.login(newUser, function (err) {
+        if (err) { return next(err); }
+        req.flash('success', '註冊成功，歡迎登入')
+        res.redirect('/');
+      })
     } catch (err) {
       console.log(err)
     }
