@@ -8,23 +8,18 @@ const User = require('../user')
 const CategorySeedData = require('./category.json').results
 const userSeedData = require('./userSeed.json').results
 
-db.once('open', () => {
-  Category.find()
-    .lean()
-    .then(categories => {
-       Promise.all(Array.from(
-         CategorySeedData,
-        (value) => {
-          value.categoryId = categories.find(category => category.name === value.name)._id
-        }
-      ))
-    })
-  Promise.all(userSeedData.map(async (user) => {
+db.once('open', async () => {
+  const categories = await Category.find().lean()
+  for (categoryObj of CategorySeedData) {
+    categoryObj.categoryId = categories.find(category => category.name === categoryObj.name)._id
+  }
+ 
+  for (userObj of userSeedData) {
     const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(user.password, salt)
+    const hash = await bcrypt.hash(userObj.password, salt)
     const registeredUser = await User.create({
-      name: user.name,
-      email: user.email,
+      name: userObj.name,
+      email: userObj.email,
       password: hash
     })
     const userId = registeredUser._id
@@ -37,9 +32,8 @@ db.once('open', () => {
         categoryId: category.categoryId,
         userId
       })
-    }))
-
-    console.log('recordSeeder done.')
-    process.exit()
-  }))
+    }))   
+  }
+  console.log('recordSeeder done.')
+  process.exit()
 })
