@@ -12,6 +12,7 @@ const PORT = process.env.PORT
 const routes = require('./routes')
 const {localSetting} = require('./middleware/localsSetting')
 const { Session } = require('./middleware/session')
+const errorHandler = require('./middleware/errorHandler')
 require('./config/mongoose')
 
 // middleware
@@ -23,6 +24,7 @@ usePassport(app)
 app.use(flash())
 app.use(localSetting)
 app.use(routes)
+app.use(errorHandler)
 
 app.engine('hbs', exphbs({ 
   defaultLayout: 'main',
